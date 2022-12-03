@@ -1,0 +1,17 @@
+.main-container {
+  height: 100%;
+  width: 100%;
+
+  .sidenav {
+    white-space: pre-line;
+    max-width: 200px;
+
+    a[mat-list-item] {
+      cursor: pointer;
+
+      .link-active {
+        font-weight: 800 !important;
+      }
+    }
+  }
+}

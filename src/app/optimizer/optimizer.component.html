@@ -1,0 +1,105 @@
+<mat-grid-list cols="4" rowHeight="5em" *ngIf="!!metrics && !isLoading">
+  <mat-grid-tile>
+    <mat-label>Revenue:</mat-label> {{metrics? metrics.revenue.current:''}}{{metrics? metrics.revenue.unit:''}}
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-label>Margin:</mat-label> {{metrics? metrics.margin.current:''}}{{metrics? metrics.margin.unit:''}}
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-label>Projected Revenue: </mat-label> {{metrics? metrics.revenue.projected:''}}{{metrics?
+    metrics.revenue.unit:''}}
+    <mat-icon aria-label="Increased" matTooltip="Increased" fontIcon="arrow_upward"
+      *ngIf="metrics.revenue.projected> metrics.revenue.current"></mat-icon>
+    <mat-icon aria-label="Decreased" matTooltip="Decreased" fontIcon="arrow_downward"
+      *ngIf="metrics.revenue.projected< metrics.revenue.current"></mat-icon>
+    <mat-icon aria-label="Flat" matTooltip="Flat" fontIcon="trending_flat"
+      *ngIf="metrics.revenue.projected=== metrics.revenue.current"></mat-icon>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-label>Projected Margin:</mat-label> {{metrics? metrics.margin.projected:''}}{{metrics?
+    metrics.revenue.unit:''}}
+    <mat-icon aria-label="Increased" matTooltip="Increased" fontIcon="arrow_upward"
+      *ngIf="metrics.margin.projected> metrics.margin.current"></mat-icon>
+    <mat-icon aria-label="Decreased" matTooltip="Decreased" fontIcon="arrow_downward"
+      *ngIf="metrics.margin.projected< metrics.margin.current"></mat-icon>
+    <mat-icon aria-label="Flat" matTooltip="Flat" fontIcon="trending_flat"
+      *ngIf="metrics.margin.projected=== metrics.margin.current"></mat-icon>
+  </mat-grid-tile>
+</mat-grid-list>
+<!-- <mat-label>Category</mat-label>
+    <select matNativeControl required placeholder="Category">
+      <option value="fastselling">Fast Selling</option>
+      <option value="slowselling">Slow selling</option>
+      <option value="lowinventory">Low inventory</option>
+    </select>
+    <span class="fill-remaining-space"></span>
+    <button mat-icon-button type="button" id="search" color="primary" aria-label="search items"
+      matTooltip="search items">
+      <mat-icon>search</mat-icon>
+    </button> -->
+
+<mat-divider></mat-divider>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" *ngIf="!isLoading">
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef>Image</th>
+    <td mat-cell *matCellDef="let inventory">
+      <img [src]="getImagePath(inventory)" class="item-image" />
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Authors</th>
+    <td mat-cell *matCellDef="let inventory">
+      {{ inventory.name }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="currentprice">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Price</th>
+    <td mat-cell *matCellDef="let inventory">
+      {{ getPriceString(inventory.price, "current") }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="recommended">
+    <th mat-header-cell *matHeaderCellDef>Recommended Price</th>
+    <td mat-cell *matCellDef="let inventory">
+      {{ getPriceString(inventory.price, "recommended") }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="adjust">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Adjust</th>
+    <td mat-cell *matCellDef="let inventory">
+      <mat-slider discrete [max]="inventory.price.endrange" [min]="inventory.price.startrange">
+        <input matSliderThumb [(value)]="inventory.price.current" />
+      </mat-slider>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="alert">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Alert</th>
+    <td mat-cell *matCellDef="let inventory">
+      <mat-icon *ngIf="inventory.alert.status === 'warning'" fontIcon="warning" aria-label="Warning"
+        [matTooltip]="inventory.alert.details"></mat-icon>
+      <mat-icon *ngIf="inventory.alert.status === 'ok'" aria-label="Ok" matTooltip="Ok" fontIcon="check"></mat-icon>
+      <mat-icon *ngIf="inventory.alert.status === 'pending'" aria-label="Pending" matTooltip="Price under evaluation"
+        fontIcon="pending"></mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Save</th>
+    <td mat-cell *matCellDef="let inventory">
+      <button *ngIf="inventory.alert.status !== 'pending'" mat-icon-button type="button" color="accent"
+        aria-label="Save" matTooltip="Save" (click)="savePrice()">
+        <mat-icon fontIcon="save"></mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+<div class="no-post-message" *ngIf="dataSource.data.length === 0 && !isLoading">
+  No items to display!
+</div>
