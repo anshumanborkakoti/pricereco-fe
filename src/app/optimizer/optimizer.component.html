@@ -1,3 +1,6 @@
+<div class="filter-placeholder">
+  ---------------Place holder for filters and search button--------------
+</div>
 <mat-grid-list cols="4" rowHeight="5em" *ngIf="!!metrics && !isLoading">
   <mat-grid-tile>
     <mat-label>Revenue:</mat-label> {{metrics? metrics.revenue.current:''}}{{metrics? metrics.revenue.unit:''}}
@@ -100,6 +103,6 @@
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-<div class="no-post-message" *ngIf="dataSource.data.length === 0 && !isLoading">
+<div class="no-items-message" *ngIf="dataSource.data.length === 0 && !isLoading">
   No items to display!
 </div>
