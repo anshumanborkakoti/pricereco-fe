@@ -22,7 +22,7 @@ export class OptimizerComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<InventoryEntity> = new MatTableDataSource<InventoryEntity>([]);
   displayedColumns: string[] = ['image', 'name', 'currentprice', 'recommended', 'adjust', 'alert', 'actions'];
-  selection = new SelectionModel<InventoryEntity>(true, []);
+  selection = new SelectionModel<InventoryEntity>(false, []);
   private pricesSub: Subscription | undefined;
   private filterValue: string = '';
 
