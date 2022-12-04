@@ -22,6 +22,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { NgChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     FormsModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

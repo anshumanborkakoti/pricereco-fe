@@ -1,1 +1,66 @@
-<p>kpi works!</p>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="chartcontainer" *ngIf="!isLoading">
+  <h1>Price over time</h1>
+  <div class="chart">
+    <div class="chartcolumn">
+      <canvas baseChart class="chart" [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+        [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+    <div class="column">
+      <mat-label>Store</mat-label>
+      <mat-select value="all">
+        <mat-option value="all">
+          All
+        </mat-option>
+        <mat-option value="Store 1">
+          Store 1
+        </mat-option>
+        <mat-option value="Store 2">
+          Store 2
+        </mat-option>
+        <mat-option value="Store 3">
+          Store 3
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="column">
+      <mat-label>Category</mat-label>
+      <mat-select value="all">
+        <mat-option value="all">
+          All
+        </mat-option>
+        <mat-option value="fastselling" selected>
+          Fast Selling
+        </mat-option>
+        <mat-option value="Slow selling">
+          Slow selling
+        </mat-option>
+        <mat-option value="discounted">
+          Discounted
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="column">
+      <mat-label>Product</mat-label>
+      <mat-select value="all">
+        <mat-option value="all">
+          All
+        </mat-option>
+        <mat-option value="shirts123">
+          Shirts123
+        </mat-option>
+        <mat-option value="trousers123">
+          Trousers123
+        </mat-option>
+        <mat-option value="socks45">
+          Socks4566
+        </mat-option>
+      </mat-select>
+    </div>
+    <button mat-button mat-raised-button color="primary" (click)="update()">Update</button>
+
+  </div>
+
+</div>
