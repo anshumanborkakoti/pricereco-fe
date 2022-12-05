@@ -43,8 +43,8 @@ export const initial: Prices = {
       skuid: "23",
       units: 200,
       category: "fast selling",
-      image: "item1.jpg",
-      name: "Shirts 14",
+      image: "trousers.jpg",
+      name: "Trousers abcd",
       price: {
         recommended: 1210,
         current: 1020,
@@ -134,7 +134,7 @@ export const edited: Prices = {
       skuid: "23",
       units: 200,
       category: "fast selling",
-      image: "item1.jpg",
+      image: "trousers.jpg",
       name: "Shirts 14",
       price: {
         recommended: 1210,
